@@ -21,25 +21,25 @@
 			<token name="ControlMode">0</token>
 			<string name="DefaultCameraID">{DefaultDeviceGuid}</string>
 			<bool name="DefinesCapabilities">false</bool>
-			<int name="FramerateCap">250</int>
+			<int name="FramerateCap">70</int>
 			<bool name="Fullscreen">false</bool>
 			<float name="GamepadCameraSensitivity">0.200000003</float>
 			<token name="GraphicsOptimizationMode">1</token>
-			<int name="GraphicsQualityLevel">19</int>
+			<int name="GraphicsQualityLevel">8</int>
 			<float name="HapticStrength">1</float>
 			<bool name="HasEverUsedVR">false</bool>
 			<float name="MasterVolume">0.100000001</float>
 			<float name="MasterVolumeStudio">1</float>
 			<bool name="MaxQualityEnabled">false</bool>
 			<bool name="MicroProfilerWebServerEnabled">false</bool>
-			<float name="MouseSensitivity">0.170000002</float>
+			<float name="MouseSensitivity">0.260000002</float>
 			<Vector2 name="MouseSensitivityFirstPerson">
-				<X>0.170000002</X>
-				<Y>0.170000002</Y>
+				<X>0.260000002</X>
+				<Y>0.260000002</Y>
 			</Vector2>
 			<Vector2 name="MouseSensitivityThirdPerson">
-				<X>0.170000002</X>
-				<Y>0.170000002</Y>
+				<X>0.260000002</X>
+				<Y>0.260000002</Y>
 			</Vector2>
 			<string name="Name">GameSettings</string>
 			<bool name="OnScreenProfilerEnabled">false</bool>

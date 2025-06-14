@@ -9,11 +9,17 @@ set "updateChecker=%userProfile%\Documents\roblox\updatechecker.py"
 set "installer=%userProfile%\Documents\roblox\RobloxPlayerInstaller.exe"
 set "versionFile=%userProfile%\Documents\roblox\roblox_version.txt"
 set "settingsFile=%userProfile%\Documents\roblox\GlobalBasicSettings_13.xml"
+set "skyboxFixPath=%userProfile%\Documents\roblox\skyboxfix\move.bat"
 
-:: Detect latest texture folder dynamically
+:: Detect latest texture folder dynamically, skipping "skyboxfix"
 set "texturesPath=%userProfile%\Documents\roblox"
 set "source="
-for /d %%i in ("%texturesPath%\*") do set "source=%%i"
+
+for /d %%i in ("%texturesPath%\*") do (
+    if /i not "%%~nxi"=="skyboxfix" (
+        set "source=%%i"
+    )
+)
 
 echo Detected texture folder: %source%
 
@@ -82,6 +88,10 @@ set "destination=%robloxRoot%\%latestInstalled%\PlatformContent\pc\textures"
 echo Copying textures...
 xcopy "%source%" "%destination%" /E /I /Y
 echo Files copied to: %destination%
+
+:: Run skyboxfix script minimized
+echo Running skyboxfix move script...
+start /min "" "%skyboxFixPath%"
 
 :: Always copy GlobalBasicSettings_13.xml before launching Roblox
 echo Copying GlobalBasicSettings_13.xml...
