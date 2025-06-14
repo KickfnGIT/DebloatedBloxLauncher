@@ -103,4 +103,6 @@ echo Launching Roblox...
 start "" "%robloxRoot%\%latestInstalled%\RobloxPlayerBeta.exe"
 echo Launched: %robloxRoot%\%latestInstalled%\RobloxPlayerBeta.exe"
 
+echo please wait 5-6 seconds for roblox to start
+timeout /t 8 >nul
 exit
