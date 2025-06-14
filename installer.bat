@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 
 :: Check if running as administrator
 net session >nul 2>&1
@@ -8,6 +8,9 @@ if %errorLevel% neq 0 (
     powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
 )
+
+:: Prompt the user about shortcut creation **after admin check**
+set /p createShortcut="Do you want to create a shortcut to Debloated Blox Launcher? (yes/no): "
 
 :: Define URLs
 set PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe
@@ -66,4 +69,25 @@ rd /s /q "%DOCS_PATH%\DebloatedBloxLauncher-main"
 del %ZIP_FILE%
 
 echo Installation complete!
+
+:: Create shortcut **only if user said yes**
+if /i "%createShortcut%"=="y" goto createShortcut
+if /i "%createShortcut%"=="yes" goto createShortcut
+
+echo Shortcut creation skipped.
 pause
+exit /b
+
+:createShortcut
+echo Creating shortcut...
+
+:: Use PowerShell to create the shortcut dynamically
+set "targetPath=%USERPROFILE%\Documents\roblox\roblox launcher.bat"
+set "shortcutPath=%USERPROFILE%\Desktop\Debloated Blox Launcher.lnk"
+set "cmdPath=C:\Windows\System32\cmd.exe"
+
+powershell -command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut('%shortcutPath%'); $Shortcut.TargetPath = '%cmdPath%'; $Shortcut.Arguments = '/c \"%targetPath%\"'; $Shortcut.Save()"
+
+echo Shortcut created successfully on your desktop!
+pause
+exit /b
