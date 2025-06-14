@@ -1,30 +1,31 @@
-# DebloatedBloxLauncher
+# 🛠️ Debloated Blox Launcher (DBL)
 
-**DBL (Debloated Blox Launcher)** is a fully open-source, lightweight, and optimized CustomRoblox launcher.  
-It features **automatic installation and updates for Roblox**, along with built-in support for **auto-loading textures and settings**—ensuring a streamlined and hassle-free experience.
+**DBL (Debloated Blox Launcher)** is an open-source, lightweight, and optimized **custom Roblox launcher**.  
+It offers **automatic installation and updates**, as well as built-in support for **auto-loading textures and settings**—ensuring a seamless, hassle-free experience.
 
 ---
 
 ## ⚠️ Important Notice  
-The **Roblox folder provided by the installer MUST be kept in the Documents directory** to ensure proper functionality.
+To function properly, **the Roblox folder provided by the installer MUST remain in the Documents directory**.
 
 ---
 
-## 🔧 How to Use  
-- **Change settings:** Modify `globalbasicsettings_13.xml`  
-- **To launch:** Run `roblox launcher.bat`, or create a shortcut to pin it to the taskbar  
-- **To change textures:** Replace the default `textures` folder with your custom textures folder 
+## 🚀 Installation & Usage  
+1. **Download and run** `installer.bat`.  
+2. **Modify settings:** Edit `globalbasicsettings_13.xml` to customize preferences.  
+3. **Launch Roblox:** Run `roblox launcher.bat` or **pin a shortcut to your taskbar** for quick access.  
+4. **Customize textures:** Replace the default `textures` folder with your own.
 
 ---
 
 ## ℹ️ Additional Information  
-This is a **custom Roblox launcher**, similar to **Bloxstrap**, and it **cannot launch Roblox from the web** at this time.  
-
-For easier access, it's **highly recommended** to create a shortcut to `roblox launcher.bat` and pin it to your taskbar.
+- DBL is a **custom Roblox launcher**, similar to **Bloxstrap**, but **does not support launching Roblox from the web**.  
+- **For easier access**, creating a shortcut to `roblox launcher.bat` and pinning it to your taskbar is highly recommended.
 
 ---
 
-Let me know if you need any further refinements!
+Let me know if you need further refinements!
 
-THIS IS 99% AI GENERATED CODE 
-I DO NOT KNOW HOW TO CODE (am learning)
+---
+#### Disclaimer:
+🚨 *This project is 99% AI-generated. I’m still learning how to code!*
