@@ -23,23 +23,23 @@
 			<bool name="DefinesCapabilities">false</bool>
 			<int name="FramerateCap">70</int>
 			<bool name="Fullscreen">false</bool>
-			<float name="GamepadCameraSensitivity">0.200000003</float>
+			<float name="GamepadCameraSensitivity">0.25999999</float>
 			<token name="GraphicsOptimizationMode">1</token>
-			<int name="GraphicsQualityLevel">8</int>
+			<int name="GraphicsQualityLevel">7</int>
 			<float name="HapticStrength">1</float>
 			<bool name="HasEverUsedVR">false</bool>
 			<float name="MasterVolume">0.100000001</float>
 			<float name="MasterVolumeStudio">1</float>
 			<bool name="MaxQualityEnabled">false</bool>
 			<bool name="MicroProfilerWebServerEnabled">false</bool>
-			<float name="MouseSensitivity">0.260000002</float>
+			<float name="MouseSensitivity">0.25999999</float>
 			<Vector2 name="MouseSensitivityFirstPerson">
-				<X>0.260000002</X>
-				<Y>0.260000002</Y>
+				<X>0.25999999</X>
+				<Y>0.25999999</Y>
 			</Vector2>
 			<Vector2 name="MouseSensitivityThirdPerson">
-				<X>0.260000002</X>
-				<Y>0.260000002</Y>
+				<X>0.25999999</X>
+				<Y>0.25999999</Y>
 			</Vector2>
 			<string name="Name">GameSettings</string>
 			<bool name="OnScreenProfilerEnabled">false</bool>
@@ -52,7 +52,7 @@
 			<int name="RCCProfilerRecordFrameRate">1</int>
 			<int name="RCCProfilerRecordTimeFrame">1</int>
 			<bool name="ReducedMotion">false</bool>
-			<token name="SavedQualityLevel">9</token>
+			<token name="SavedQualityLevel">3</token>
 			<int64 name="SourceAssetId">-1</int64>
 			<bool name="StartMaximized">true</bool>
 			<Vector2 name="StartScreenPosition">
