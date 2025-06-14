@@ -13,7 +13,7 @@ The **Roblox folder provided by the installer MUST be kept in the Documents dire
 ## 🔧 How to Use  
 - **Change settings:** Modify `globalbasicsettings_13.xml`  
 - **To launch:** Run `roblox launcher.bat`, or create a shortcut to pin it to the taskbar  
-- **To change textures:** Replace the default `textures` folder with your custom textures  
+- **To change textures:** Replace the default `textures` folder with your custom textures folder 
 
 ---
 
