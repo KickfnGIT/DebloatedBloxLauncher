@@ -25,3 +25,6 @@ For easier access, it's **highly recommended** to create a shortcut to `roblox l
 ---
 
 Let me know if you need any further refinements!
+
+THIS IS 99% AI GENERATED CODE 
+I DO NOT KNOW HOW TO CODE (am learning)
