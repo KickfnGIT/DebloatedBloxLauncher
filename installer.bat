@@ -92,6 +92,13 @@ powershell -command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut 
 echo Shortcut created successfully with an icon!
 
 :cleanup
+:: Delete existing "Roblox Player.lnk" if it exists
+set "oldShortcut=%USERPROFILE%\Desktop\Roblox Player.lnk"
+if exist "%oldShortcut%" (
+    echo Removing old shortcut...
+    del "%oldShortcut%"
+)
+
 pause
 
 :: Delete the batch script itself before exiting
