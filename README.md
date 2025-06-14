@@ -13,8 +13,8 @@ To function properly, **the Roblox folder provided by the installer MUST remain 
 ## 🚀 Installation & Usage  
 1. **Download and run** `installer.bat`.  
 2. **Modify settings:** Edit `globalbasicsettings_13.xml` to customize preferences.  
-3. **Launch Roblox:** Run `roblox launcher.bat` or **pin a shortcut to your taskbar** for quick access.  
-4. **Customize textures:** Replace the default `textures` folder with your own.
+3. **Customize textures:** Replace the default `textures` folder with your own.  
+4. **Launch Roblox:** Run `roblox launcher.bat` or **pin a shortcut to your taskbar** for quick access.  
 
 ---
 
