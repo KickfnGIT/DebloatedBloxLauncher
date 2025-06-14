@@ -7,7 +7,8 @@ Roblox folder that is provided from installer MUST be KEPT in documents
 how to use
 change settings: modify globalbasicsettings_13.xml
 to launch it: just run roblox launcher.bat or you can make a shorcut to it to pin to taskbar
-to change textures: replace default textures folder
+to change textur
+es: replace default textures folder
 ------------------------------------------------------------
 This is a custom roblox launcher (like bloxstrap)
 so i highly recommend making a shortcut to roblox launcher.bat and pinning to taskbar
