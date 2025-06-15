@@ -3,16 +3,17 @@ setlocal EnableDelayedExpansion
 
 :: Elevate to admin
 net session >nul 2>&1
-if %errorLevel% neq 0 (
+if %errorlevel% neq 0 (
     powershell -Command "Start-Process '%~f0' -Verb RunAs"
     exit /b
 )
 
-:: Set environment variables
+:: Set paths
 set "LOCALAPPDATA=%LOCALAPPDATA%"
+set "USERDOCS=%USERPROFILE%\Documents"
 set "VERSIONS_DIR=%LOCALAPPDATA%\Roblox\Versions"
 
-:: Detect latest Roblox version folder
+:: Find latest version-* folder
 for /f "delims=" %%A in ('dir /b /ad "%VERSIONS_DIR%\version-*" ^| sort /R') do (
     set "VERSION_FOLDER=%%A"
     goto :found
@@ -20,56 +21,64 @@ for /f "delims=" %%A in ('dir /b /ad "%VERSIONS_DIR%\version-*" ^| sort /R') do 
 
 :found
 if not defined VERSION_FOLDER (
-    echo ❌ Could not find a Roblox version folder.
+    echo ❌ Roblox version folder not found.
     pause
     exit /b
 )
 
-set "FULL_VERSION_PATH=%VERSIONS_DIR%\%VERSION_FOLDER%\PlatformContent\pc"
-set "DEST_FOLDER=!FULL_VERSION_PATH!\textures"
+set "ROBLOX_DEST=%VERSIONS_DIR%\%VERSION_FOLDER%\PlatformContent\pc\textures"
 
-:: Clear existing textures if present
-if exist "!DEST_FOLDER!" (
-    echo Removing old Roblox textures...
-    rd /s /q "!DEST_FOLDER!"
-)
-
-:: Download ZIP
+:: Download ZIP and extract
 set "ZIP_URL=https://github.com/KickfnGIT/DebloatedBloxLauncher/archive/refs/heads/main.zip"
-set "ZIP_PATH=%TEMP%\blox.zip"
-set "EXTRACT_PATH=%TEMP%\blox_extracted"
+set "ZIP_FILE=%TEMP%\blox.zip"
+set "UNZIP_DIR=%TEMP%\blox_extracted"
 
-echo Downloading from GitHub...
-curl -L -o "!ZIP_PATH!" "!ZIP_URL!"
-if not exist "!ZIP_PATH!" (
-    echo ❌ Download failed!
+echo Downloading...
+curl -L -o "!ZIP_FILE!" "!ZIP_URL!"
+if not exist "!ZIP_FILE!" (
+    echo ❌ Download failed.
     pause
     exit /b
 )
 
-echo Extracting archive...
-powershell -Command "Expand-Archive -LiteralPath '!ZIP_PATH!' -DestinationPath '!EXTRACT_PATH!' -Force"
+echo Extracting...
+powershell -Command "Expand-Archive -LiteralPath '!ZIP_FILE!' -DestinationPath '!UNZIP_DIR!' -Force"
 
-:: Copy textures to Roblox
-echo Installing to Roblox: !DEST_FOLDER!
-xcopy /s /e /y "!EXTRACT_PATH!\DebloatedBloxLauncher-main\roblox\Default textures" "!DEST_FOLDER!\"
+:: Install to Roblox
+if exist "!ROBLOX_DEST!" rd /s /q "!ROBLOX_DEST!"
+xcopy /s /e /y "!UNZIP_DIR!\DebloatedBloxLauncher-main\roblox\Default textures" "!ROBLOX_DEST!\"
 
-:: Also install to compatible mod systems
-for %%S in ("Voidstrap\Mods" "Bloxstrap\Modifications" "Fishstrap\Modifications") do (
-    set "MOD_BASE=%LOCALAPPDATA%\%%~S"
-    set "MOD_TARGET=!MOD_BASE!\PlatformContent\pc\textures"
-    if exist "!MOD_BASE!" (
-        echo Installing to %%~S...
-        rd /s /q "!MOD_TARGET!" >nul 2>&1
-        mkdir "!MOD_BASE!\PlatformContent\pc" 2>nul
-        xcopy /s /e /y "!DEST_FOLDER!" "!MOD_TARGET!\"
+:: Install to Voidstrap, Bloxstrap, Fishstrap mods
+for %%D in ("Voidstrap\Mods" "Bloxstrap\Modifications" "Fishstrap\Modifications") do (
+    set "MODROOT=%LOCALAPPDATA%\%%~D\PlatformContent\pc\textures"
+    if exist "!MODROOT!\.." (
+        echo Installing to %%~D...
+        rd /s /q "!MODROOT!" >nul 2>&1
+        mkdir "!MODROOT!\.." >nul 2>&1
+        xcopy /s /e /y "!ROBLOX_DEST!" "!MODROOT!\"
     )
 )
 
-:: Clean temp files
-echo Cleaning up...
-rd /s /q "!EXTRACT_PATH!" >nul 2>&1
-del "!ZIP_PATH!" >nul 2>&1
+:: Clean up Documents\roblox (preserve skyboxfix)
+set "DOC_ROBLOX=%USERDOCS%\roblox"
+set "DOC_TEXTURES=%DOC_ROBLOX%\textures"
+if exist "!DOC_ROBLOX!" (
+    echo Cleaning up Documents\roblox...
+    for /d %%F in ("!DOC_ROBLOX!\*") do (
+        if /i not "%%~nxF"=="skyboxfix" (
+            echo Deleting %%~nxF
+            rd /s /q "%%F"
+        )
+    )
+    echo Installing textures to Documents\roblox...
+    mkdir "!DOC_TEXTURES!" >nul 2>&1
+    xcopy /s /e /y "!ROBLOX_DEST!" "!DOC_TEXTURES!\"
+)
 
-echo ✅ All done! Textures installed to Roblox and available mod platforms.
+:: Final cleanup
+rd /s /q "!UNZIP_DIR!" >nul 2>&1
+del "!ZIP_FILE!" >nul 2>&1
+
+echo ✅ Textures installed and Documents\roblox cleaned.
 pause
+exit
