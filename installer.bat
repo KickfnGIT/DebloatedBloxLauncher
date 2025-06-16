@@ -12,6 +12,7 @@ if %errorLevel% neq 0 (
 :: === Prompt the user up front ===
 set /p createShortcut="Do you want to create a shortcut to Debloated Blox Launcher? (yes/no): "
 set /p installDark="Would you like to apply the dark textures preset? (You can switch back anytime) (yes/no): "
+set /p customSettings="Would you like to enter custom settings? (yes/no): "
 
 :: === Define URLs and paths ===
 set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe"
@@ -79,8 +80,7 @@ echo Shortcut created successfully.
 :handleTextures
 if /i "%installDark%"=="yes" goto installDarkTextures
 if /i "%installDark%"=="y" goto installDarkTextures
-echo Dark textures installation skipped.
-goto cleanup
+goto checkCustomSettings
 
 :installDarkTextures
 echo Downloading dark textures preset...
@@ -101,6 +101,17 @@ del "%TEMP_ZIP%"
 rd /s /q "%TEMP_DIR%"
 
 echo Dark textures installed successfully.
+goto checkCustomSettings
+
+:checkCustomSettings
+if /i "%customSettings%"=="yes" goto runCustomSettings
+if /i "%customSettings%"=="y" goto runCustomSettings
+goto cleanup
+
+:runCustomSettings
+echo Launching custom settings script...
+powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\Documents\roblox\Change settings Or revert to default textures\powershell script (do not touch)\Change settings.ps1"
+goto cleanup
 
 :cleanup
 set "oldShortcut=%USERPROFILE%\Desktop\Roblox Player.lnk"
