@@ -110,7 +110,7 @@ goto cleanup
 
 :runCustomSettings
 echo Launching custom settings script...
-powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\Documents\roblox\Change settings Or revert to default textures\powershell script (do not touch)\Change settings.ps1"
+powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\Documents\roblox\Change settings Or change textures\misc\Change settings.ps1"
 goto cleanup
 
 :cleanup
