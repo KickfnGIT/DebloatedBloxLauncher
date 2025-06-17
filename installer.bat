@@ -43,6 +43,7 @@ python --version || echo Python installation failed.
 echo Installing BeautifulSoup...
 python -m ensurepip
 python -m pip install --upgrade pip
+python -m pip install beautifulsoup4
 python -m pip install pyqt5
 python -m pip install pyside6
 
