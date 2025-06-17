@@ -14,7 +14,7 @@ powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%ZIP_URL%',
 
 :: === Extract sky textures folder ===
 echo Extracting sky textures...
-powershell -Command "Expand-Archive -Path '%TEMP_ZIP%' -DestinationPath '%TEMP_DIR%' -Force"
+powershell -Command  "Expand-Archive -Path '%TEMP_ZIP%' -DestinationPath '%TEMP_DIR%' -Force"
 
 :: === Copy only the 'sky' folder to each eligible folder ===
 for /d %%F in ("%TARGET_ROOT%\*") do (
