@@ -79,5 +79,4 @@ rd /s /q "!UNZIP_DIR!" >nul 2>&1
 del "!ZIP_FILE!" >nul 2>&1
 
 echo ✅ Textures installed and DBL folder cleaned.
-pause
 exit

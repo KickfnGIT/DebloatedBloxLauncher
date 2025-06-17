@@ -60,4 +60,4 @@ del "%TEMP_ZIP%"
 rd /s /q "%TEMP_DIR%"
 
 echo Done.
-pause
+exit
