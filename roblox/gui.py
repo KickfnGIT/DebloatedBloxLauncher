@@ -174,6 +174,8 @@ class BlurredWindow(QWidget):
         batch_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "roblox launcher.bat")
         import subprocess
         subprocess.Popen(['cmd', '/c', 'start', '', batch_path], shell=True)
+        # Close the Python application after launching the batch file
+        QApplication.quit()
 
     def mousePressEvent(self, event):
         self.oldPos = event.globalPos()
