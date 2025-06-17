@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 :: Use the modern Windows file picker dialog
-set "psScript=Add-Type -AssemblyName System.Windows.Forms; $f = New-Object Windows.Forms.OpenFileDialog; $f.InitialDirectory = [Environment]::GetFolderPath('Desktop'); $f.Title = 'Select your custom sky folder'; $f.Filter = 'Folders|*.*'; $f.CheckFileExists = $false; $f.CheckPathExists = $true; $f.ValidateNames = $false; $f.FileName = 'Select Folder'; if($f.ShowDialog() -eq 'OK') { Split-Path $f.FileName }"
+set "psScript=Add-Type -AssemblyName System.Windows.Forms; $f = New-Object Windows.Forms.OpenFileDialog; $f.InitialDirectory = [Environment]::GetFolderPath('Desktop'); $f.Title = 'Select your custom sky folder'; $f.Filter = 'Folders|*.*'; $f.CheckFileExists = $false; $f.CheckPathExists = $true; $f.ValidateNames = $false; $f.FileName = 'Select Folder'; $f.TopMost = $true; if($f.ShowDialog() -eq 'OK') { Split-Path $f.FileName }"
 
 for /f "delims=" %%I in ('powershell -NoProfile -WindowStyle Hidden -Command "%psScript%"') do set "selectedFolder=%%I"
 
