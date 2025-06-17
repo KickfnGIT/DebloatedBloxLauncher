@@ -5,11 +5,6 @@ It offers **automatic installation and updates**, as well as built-in support fo
 
 ---
 
-## ⚠️ Important Notice  
-To function properly, **the Roblox folder provided by the installer MUST remain in the Documents directory**.
-
----
-
 ## 🚀 Installation & Usage  
 1. **Download and run** `installer.bat`.  
 2. **Modify settings:** Run `change settings.bat` to customize preferences.  
