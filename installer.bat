@@ -19,8 +19,8 @@ set "PYTHON_URL=https://www.python.org/ftp/python/3.12.1/python-3.12.1-amd64.exe
 set "ZIP_URL=https://github.com/KickfnGIT/DebloatedBloxLauncher/archive/refs/heads/main.zip"
 set "INSTALLER=python-installer.exe"
 set "ZIP_FILE=DebloatedBloxLauncher.zip"
-set "DOCS_PATH=%USERPROFILE%\Documents"
-set "TARGET_TEXTURES=%DOCS_PATH%\roblox\Default textures"
+set "LOCALAPPDATA_PATH=%LOCALAPPDATA%"
+set "TARGET_TEXTURES=%LOCALAPPDATA_PATH%\DBL\Default textures"
 set "TEMP_ZIP=%TEMP%\dark_textures.zip"
 set "TEMP_DIR=%TEMP%\dark_textures"
 
@@ -43,24 +43,26 @@ python --version || echo Python installation failed.
 echo Installing BeautifulSoup...
 python -m ensurepip
 python -m pip install --upgrade pip
-python -m pip install beautifulsoup4
+python -m pip install pyqt5
+python -m pip install pyside6
+
 
 :: === Download and extract launcher repo ===
 echo Downloading Debloated Blox Launcher...
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%ZIP_URL%', '%ZIP_FILE%')"
 
-if exist "%DOCS_PATH%\roblox" (
-    echo Removing existing roblox folder...
-    rd /s /q "%DOCS_PATH%\roblox"
+if exist "%LOCALAPPDATA_PATH%\DBL" (
+    echo Removing existing DBL folder...
+    rd /s /q "%LOCALAPPDATA_PATH%\DBL"
 )
 
 echo Extracting launcher files...
-powershell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%DOCS_PATH%' -Force"
-move "%DOCS_PATH%\DebloatedBloxLauncher-main\roblox" "%DOCS_PATH%" >nul 2>&1
-rd /s /q "%DOCS_PATH%\DebloatedBloxLauncher-main"
+powershell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%LOCALAPPDATA_PATH%' -Force"
+move "%LOCALAPPDATA_PATH%\DebloatedBloxLauncher-main\roblox" "%LOCALAPPDATA_PATH%\DBL" >nul 2>&1
+rd /s /q "%LOCALAPPDATA_PATH%\DebloatedBloxLauncher-main"
 del %ZIP_FILE%
 
-echo Launcher files installed.
+echo Launcher files installed to %LOCALAPPDATA_PATH%\DBL
 
 :: === Create shortcut if user agreed ===
 if /i "%createShortcut%"=="yes" goto createShortcut
@@ -70,11 +72,11 @@ goto handleTextures
 
 :createShortcut
 echo Creating shortcut...
-set "targetPath=%USERPROFILE%\Documents\roblox\roblox launcher.bat"
+set "targetPath=%LOCALAPPDATA_PATH%\DBL\gui.py"
 set "shortcutPath=%USERPROFILE%\Desktop\Debloated Blox Launcher.lnk"
-set "cmdPath=C:\Windows\System32\cmd.exe"
-set "iconPath=%USERPROFILE%\Documents\roblox\RobloxPlayerInstaller.exe"
-powershell -command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%shortcutPath%'); $s.TargetPath = '%cmdPath%'; $s.Arguments = '/c \"%targetPath%\"'; $s.IconLocation = '%iconPath%'; $s.Save()"
+set "cmdPath=%PYTHON_PATH%\pythonw.exe"
+set "iconPath=%LOCALAPPDATA_PATH%\DBL\RobloxPlayerInstaller.exe"
+powershell -command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%shortcutPath%'); $s.TargetPath = '%cmdPath%'; $s.Arguments = '"%targetPath%"'; $s.IconLocation = '%iconPath%'; $s.Save()"
 echo Shortcut created successfully.
 
 :handleTextures
@@ -110,7 +112,7 @@ goto cleanup
 
 :runCustomSettings
 echo Launching custom settings script...
-powershell -ExecutionPolicy Bypass -File "%USERPROFILE%\Documents\roblox\Change settings Or change textures\misc\Change settings.ps1"
+powershell -ExecutionPolicy Bypass -File "%LOCALAPPDATA_PATH%\DBL\Change settings Or change textures\misc\Change settings.ps1"
 goto cleanup
 
 :cleanup
