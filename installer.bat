@@ -39,13 +39,58 @@ setx PATH "%PATH%;%PYTHON_PATH%;%PYTHON_PATH%\Scripts" /M
 echo Verifying Python installation...
 python --version || echo Python installation failed.
 
-:: === Install BeautifulSoup ===
-echo Installing BeautifulSoup...
-python -m ensurepip
-python -m pip install --upgrade pip
-python -m pip install beautifulsoup4
-python -m pip install pyqt5
-python -m pip install pyside6
+:: Set installer directory to Downloads\installers
+set "INSTALL_DIR=%USERPROFILE%\Downloads\installers"
+if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
+cd /d "%INSTALL_DIR%"
+
+:: Python versions to fetch
+set PY312=https://www.python.org/ftp/python/3.12.9/python-3.12.9-amd64.exe
+set PY313=https://www.python.org/ftp/python/3.13.2/python-3.13.2-amd64.exe
+set PYLATEST=https://www.python.org/ftp/python/3.13.2/python-3.13.2-amd64.exe
+
+echo 📥 Downloading and installing Python versions...
+
+:: Download installers if they don't exist
+if not exist python312.exe curl -L %PY312% -o python312.exe
+if not exist python313.exe curl -L %PY313% -o python313.exe
+if not exist python_latest.exe curl -L %PYLATEST% -o python_latest.exe
+
+:: Perform silent installs
+start /wait python312.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
+start /wait python313.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
+start /wait python_latest.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
+
+:: Define Python locations to check
+for %%P in (
+    "C:\Python39\python.exe"
+    "C:\Python310\python.exe"
+    "C:\Python311\python.exe"
+    "C:\Python312\python.exe"
+    "C:\Python313\python.exe"
+    "C:\Python314\python.exe"
+    "C:\Python315\python.exe"
+    "C:\Program Files\Python310\python.exe"
+    "C:\Program Files\Python311\python.exe"
+    "C:\Program Files\Python312\python.exe"
+    "C:\Program Files\Python313\python.exe"
+    "C:\Program Files\Python314\python.exe"
+    "C:\Program Files\Python315\python.exe"
+    "C:\Program Files (x86)\Python39\python.exe"
+) do (
+    set "PY=%%~P"
+    if exist !PY! (
+        echo.
+        echo 🔍 Installing packages with: !PY!
+        call "!PY!" -m ensurepip
+        call "!PY!" -m pip install --upgrade pip
+        call "!PY!" -m pip install beautifulsoup4 PyQt5 PySide6 || (
+            echo ❌ Package install failed using: !PY!
+        )
+    ) else (
+        echo ⚠️  Skipping missing path: %%P
+    )
+)
 
 
 :: === Download and extract launcher repo ===
@@ -76,7 +121,7 @@ echo Creating shortcut...
 set "targetPath=%LOCALAPPDATA_PATH%\DBL\gui.py"
 set "shortcutPath=%USERPROFILE%\Desktop\Debloated Blox Launcher.lnk"
 set "cmdPath=%PYTHON_PATH%\pythonw.exe"
-set "iconPath=%LOCALAPPDATA_PATH%\DBL\RobloxPlayerInstaller.exe"
+set "iconPath=%LOCALAPPDATA_PATH%\DBL\skyboxfix\images\communityIcon_zh277xaatqt91_upscayl_4x_ultrasharp.ico"
 powershell -command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%shortcutPath%'); $s.TargetPath = '%cmdPath%'; $s.Arguments = '"%targetPath%"'; $s.IconLocation = '%iconPath%'; $s.Save()"
 echo Shortcut created successfully.
 
