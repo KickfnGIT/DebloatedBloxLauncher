@@ -61,7 +61,9 @@ if "%latestInstalled%"=="%latestOnline%" (
     echo New version available. Installing update...
     start "" "%installer%"
     echo Waiting for Roblox to start...
-    timeout /t 10 >nul
+    rmdir /s /q "%localappdata%\Roblox\Versions\version-%latestInstalled%"
+    echo deleting %localappdata%\Roblox\Versions\version-%latestInstalled%
+    timeout /t 15 >nul
 
     :: Redetect version folder after update
     set "latestInstalled="
