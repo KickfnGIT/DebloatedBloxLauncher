@@ -278,10 +278,10 @@ class BlurredWindow(QWidget):
     def launch_settings_ui(self):
         # Launch the settings UI
         settings_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 
-                                     "Change settings Or change textures", 
-                                     "menu.py")
-        pythonw = os.path.join(os.path.dirname(sys.executable), 'pythonw.exe')
-        subprocess.Popen([pythonw, settings_path])
+            "Change settings Or change textures", 
+            "Main menu.bat")
+        subprocess.Popen(['cmd', '/c', 'start', '', settings_path], shell=True)
+        # Close the Python application after launching the batch file
         self.close()
 
     def open_settings(self):
