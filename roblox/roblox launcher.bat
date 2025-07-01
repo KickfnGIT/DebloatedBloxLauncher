@@ -106,5 +106,10 @@ start "" "%robloxRoot%\%latestInstalled%\RobloxPlayerBeta.exe"
 echo Launched: %robloxRoot%\%latestInstalled%\RobloxPlayerBeta.exe"
 
 echo please wait 5-6 seconds for roblox to start
+set "oldShortcut=%USERPROFILE%\Desktop\Roblox Player.lnk"
+if exist "%oldShortcut%" (
+    echo Removing old shortcut...
+    del "%oldShortcut%"
+)
 timeout /t 8 >nul
 exit
