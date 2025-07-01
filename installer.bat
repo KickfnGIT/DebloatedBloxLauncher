@@ -53,13 +53,9 @@ echo 📥 Downloading and installing Python versions...
 
 :: Download installers if they don't exist
 if not exist python312.exe curl -L %PY312% -o python312.exe
-if not exist python313.exe curl -L %PY313% -o python313.exe
-if not exist python_latest.exe curl -L %PYLATEST% -o python_latest.exe
 
 :: Perform silent installs
 start /wait python312.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
-start /wait python313.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
-start /wait python_latest.exe /quiet InstallAllUsers=1 PrependPath=1 Include_pip=1
 
 :: Define Python locations to check
 for %%P in (
@@ -84,7 +80,7 @@ for %%P in (
         echo 🔍 Installing packages with: !PY!
         call "!PY!" -m ensurepip
         call "!PY!" -m pip install --upgrade pip
-        call "!PY!" -m pip install beautifulsoup4 PyQt5 PySide6 || (
+        call "!PY!" -m pip install beautifulsoup4 PyQt5 PySide6 psutil || (
             echo ❌ Package install failed using: !PY!
         )
     ) else (
@@ -120,9 +116,17 @@ goto handleTextures
 echo Creating shortcut...
 set "targetPath=%LOCALAPPDATA_PATH%\DBL\gui.py"
 set "shortcutPath=%USERPROFILE%\Desktop\Debloated Blox Launcher.lnk"
-set "cmdPath=%PYTHON_PATH%\pythonw.exe"
 set "iconPath=%LOCALAPPDATA_PATH%\DBL\skyboxfix\images\communityIcon_zh277xaatqt91_upscayl_4x_ultrasharp.ico"
-powershell -command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%shortcutPath%'); $s.TargetPath = '%cmdPath%'; $s.Arguments = '"%targetPath%"'; $s.IconLocation = '%iconPath%'; $s.Save()"
+REM Find python.exe in common install locations
+set "cmdPath="
+if exist "%ProgramFiles%\Python313\pythonw.exe" set "cmdPath=%ProgramFiles%\Python313\pythonw.exe"
+if exist "%LocalAppData%\Programs\Python\Python313\pythonw.exe" set "cmdPath=%LocalAppData%\Programs\Python\Python313\pythonw.exe"
+if not defined cmdPath (
+    echo ERROR: pythonw.exe not found!
+    pause
+    exit /b
+)
+powershell -command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut('%shortcutPath%'); $s.TargetPath = '%cmdPath%'; $s.Arguments = '\"%targetPath%\"'; $s.IconLocation = '%iconPath%'; $s.Save()"
 echo Shortcut created successfully.
 
 :handleTextures
@@ -168,6 +172,10 @@ if exist "%oldShortcut%" (
     del "%oldShortcut%"
 )
 
+REM Delete installers folder in Downloads for all users
+for /d %%U in ("C:\Users\*") do (
+    if exist "%%U\Downloads\installers" rd /s /q "%%U\Downloads\installers"
+)
 pause
 del "%~f0"
 exit /b
