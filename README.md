@@ -36,6 +36,3 @@ It offers **automatic installation and updates**, as well as built-in support fo
 Let me know if you need any more refinements!
 
 ---
-
-#### Disclaimer:  
-🚨 *This project is 90% AI-generated. I’m still learning how to code!*
