@@ -6,10 +6,7 @@ It offers **automatic installation and updates**, as well as built-in support fo
 ---
 
 ## 🚀 Installation & Usage  
-1. **Download and run** `installer.bat`.  
-2. **Modify settings:** Run `change settings.bat` to customize preferences.  
-3. **Customize textures:** Replace the default `textures` folder with your own.  
-4. **Launch Roblox:** Run `roblox launcher.bat` or **pin a shortcut to your taskbar** for quick access.  
+1. **Download and run** `installer.bat`.   
 
 ### 🌟 Features  
 - **Auto Installation of Textures**  
