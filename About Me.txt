@@ -1,0 +1,9 @@
+Hello, I'm the creator of DBL.
+
+DBL is a solo project built entirely by me. It originally started with AI-generated code, but after my subscription ended, I took the opportunity to learn Python and continue development myself.
+
+I built DBL in response to issues with other Roblox bootstrappers. Many of them modify Roblox in ways that are getting users banned.
+
+DBL is different. It's a fully debloated Roblox launcher that runs clean and undetected. It won't get you banned—unless you choose to use fast flags, which come with their own risks.
+
+Thanks for checking out the project.
